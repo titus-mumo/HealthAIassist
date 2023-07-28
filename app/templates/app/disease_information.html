@@ -1,0 +1,188 @@
+{% extends 'app/base.html' %} {% load static %} {% load crispy_forms_tags %} \
+{% block content %}
+<style>
+  #container{
+    margin-left:400px;
+    margin-top:150px;
+    padding:0px;
+    margin-bottom:500px;
+  }
+    #head-div {
+      display: flex;
+      align-iems:center;
+      justify-content:center;
+      position:relative;
+      height:80px;
+      margin-bottom:0px;
+      padding-bottom:20px;
+      border:solid 2px black;
+      box-shadow:1px 2px #888888;
+      border-radius:10px;
+      width:100%
+      margin:0px;
+      margin-left:20px;
+
+    }
+    #causes-area , #symptoms-area, #measures-area{
+      width: 280px;
+      height: 300px;
+      align-self:center
+      {% comment %} overflow: hidden; {% endcomment %}
+      word-wrap: break-word;
+      padding:10px;
+      border-radius: 10px;
+      margin-bottom:0px;
+    }
+    #symptoms-area{
+      background-color: #04c2e3;
+      box-shadow:1px 2px #cfe2ff;
+    }
+    #measures-area{
+       background-color: #20c997;
+      box-shadow:1px 2px #198754;
+    }
+    #causes-area{
+       background-color:#ffb107;
+      box-shadow:1px 2px #997404;
+    }
+  #prevButton, #nextButton {
+      height: 35px;
+      display: flex;
+      align-items: center;
+    }
+    #navigation {
+      width: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height:70px;
+      margin-top:0px;
+    }
+    #bookmarkButton{
+      position:absolute;
+      right:4px;
+      height:35px;
+      top:23px;
+    }
+    #disease-name{
+      align-self:center;
+    }
+    #nextButton{
+      position:absolute;
+      top:23px;
+      right:60px;
+    }
+    #prevButton{
+      position:absolute;
+      top:23px;
+      left:30px;
+    }
+    #disease-name {
+      margin-top:8px;
+      margin-right:25px;
+    }
+    .line-break {
+      white-space: pre-line;
+    }
+  .bookmarked {
+    background-color: black;
+  }
+</style>
+<div class="d-flex flex-column" id="container">
+  <div class="p-2 d-flex" id="head-div">
+    <button type="button" id="prevButton" class="p-2 btn btn-secondary">
+      <span class="material-symbols-outlined"> navigate_before </span>
+    </button>
+    <h3 id="disease-name" class="p-2">{{ disease_array.0.disease }}</h3>
+    <button type="button" id="nextButton" class="p-2 btn btn-secondary">
+      <span class="material-symbols-outlined"> navigate_next </span>
+    </button>
+    <button type="button" id="bookmarkButton" class="p-2 btn btn-secondary">
+      <span class="material-symbols-outlined"> bookmark</span>
+    </button>
+  </div>
+  <div class="p-2 d-flex flex-row">
+    <div class="p-2" id="p-2">
+      <h5>Causes</h5>
+      <p id="causes-area" class="line-break">
+        {{ disease_array.0.causes | linebreaksbr}}
+      </p>
+    </div>
+
+    <div class="p-2" id="p-2">
+      <h5>Symptoms</h5>
+      <p id="symptoms-area" class="line-break">
+        {{ disease_array.0.symptoms | linebreaksbr}}
+      </p>
+    </div>
+    <div class="p-2" id="p-2">
+      <h5>Protective Measures</h5>
+      <p id="measures-area" class="line-break">
+        {{ disease_array.0.measures | linebreaksbr}}
+      </p>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    var diseaseIndex = 0;
+    var diseaseArray = {{ disease_array|safe }};
+    var bookmarkedDiseases = [];
+
+    // Function to update the content based on the current disease index
+    function updateContent() {
+      var currentDisease = diseaseArray[diseaseIndex];
+      $("#disease-name").text(currentDisease.disease);
+      $("#causes-area").html(currentDisease.causes);
+      $("#symptoms-area").html(currentDisease.symptoms);
+      $("#measures-area").html(currentDisease.measures);
+
+      // Check if the current disease is bookmarked
+      if (bookmarkedDiseases.includes(currentDisease.disease)) {
+        $("#bookmarkButton").addClass("bookmarked");
+      } else {
+        $("#bookmarkButton").removeClass("bookmarked");
+      }
+    }
+
+    // Event listener for the next button
+    $("#nextButton").click(function() {
+      diseaseIndex++;
+      if (diseaseIndex >= diseaseArray.length) {
+        diseaseIndex = 0; // Loop back to the first disease
+      }
+      updateContent();
+    });
+
+    // Event listener for the previous button
+    $("#prevButton").click(function() {
+      diseaseIndex--;
+      if (diseaseIndex < 0) {
+        diseaseIndex = diseaseArray.length - 1; // Loop to the last disease
+      }
+      updateContent();
+    });
+
+    // Event listener for the bookmark button
+    $("#bookmarkButton").click(function() {
+      var currentDisease = diseaseArray[diseaseIndex].disease;
+      if (bookmarkedDiseases.includes(currentDisease)) {
+        // Remove from bookmarks
+        var index = bookmarkedDiseases.indexOf(currentDisease);
+        bookmarkedDiseases.splice(index, 1);
+        $("#bookmarkButton").removeClass("bookmarked");
+      } else {
+        // Add to bookmarks
+        bookmarkedDiseases.push(currentDisease);
+        $("#bookmarkButton").addClass("bookmarked");
+      }
+    });
+
+    // Initial content update
+    updateContent();
+  });
+</script>
+
+{% endblock content %}

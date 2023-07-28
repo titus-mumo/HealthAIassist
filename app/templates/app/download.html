@@ -1,0 +1,6 @@
+{% extends 'app/base.html' %} {% load static %} {% load crispy_forms_tags %} {%
+block content %}
+<a href="{% url 'print_records' %}">
+  <button>Download Patient Records</button>
+</a>
+{% endblock content%}

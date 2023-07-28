@@ -1,0 +1,233 @@
+{% extends 'app/base.html' %} {% load static %} {% load crispy_forms_tags %} 
+{% block content %}
+<style>
+  .record-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  .record-heading {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .record-field {
+    margin-bottom: 2px;
+  }
+</style>
+
+<h1>Symptoms Records</h1>
+{% for record in symptoms_records %}
+<div class="record-container">
+  <div class="record-heading">Record ID: {{ record.record_id }}</div>
+  <div class="record-field">
+    <strong>Date Diagnosed:</strong> {{ record.date_diagnosed }}
+  </div>
+  <div class="record-field"><strong>Itching:</strong> {{ record.itching }}</div>
+  <div class="record-field">
+    <strong>Skin Rash:</strong> {{ record.skin_rash }}
+  </div>
+  <div class="record-field">
+    <strong>Nodal Skin Eruption:</strong> {{ record.nodal_skin_eruption }}
+  </div>
+  <div class="record-field">
+    <strong>Continuous Sneezing:</strong> {{ record.continuous_sneezing }}
+  </div>
+  <div class="record-field">
+    <strong>Shivering:</strong> {{ record.shivering }}
+  </div>
+  <div class="record-field"><strong>Chills:</strong> {{ record.chills }}</div>
+  <div class="record-field">
+    <strong>Joint Pain:</strong> {{ record.joint_pain }}
+  </div>
+  <div class="record-field">
+    <strong>Stomach Pain:</strong> {{ record.stomach_pain }}
+  </div>
+  <div class="record-field">
+    <strong>Vomiting:</strong> {{ record.vomiting }}
+  </div>
+  <div class="record-field"><strong>Fatigue:</strong> {{ record.fatigue }}</div>
+  <div class="record-field">
+    <strong>Weight Loss:</strong> {{ record.weight_loss }}
+  </div>
+  <div class="record-field">
+    <strong>Restlessness:</strong> {{ record.restlessness }}
+  </div>
+  <div class="record-field"><strong>Cough:</strong> {{ record.cough }}</div>
+  <div class="record-field">
+    <strong>High Fever:</strong> {{ record.high_fever }}
+  </div>
+  <div class="record-field">
+    <strong>Breathlessness:</strong> {{ record.breathlessness }}
+  </div>
+  <div class="record-field">
+    <strong>Sweating:</strong> {{ record.sweating }}
+  </div>
+  <div class="record-field">
+    <strong>Indigestion:</strong> {{ record.indigestion }}
+  </div>
+  <div class="record-field">
+    <strong>Headache:</strong> {{ record.headache }}
+  </div>
+  <div class="record-field">
+    <strong>Yellow Skin:</strong> {{ record.yellow_skin }}
+  </div>
+  <div class="record-field">
+    <strong>Dark Urine:</strong> {{ record.dark_urine }}
+  </div>
+  <div class="record-field"><strong>Nausea:</strong> {{ record.nausea }}</div>
+  <div class="record-field">
+    <strong>Loss of Appetite:</strong> {{ record.loss_of_appetite }}
+  </div>
+  <div class="record-field">
+    <strong>Pain Behind the Eyes:</strong> {{ record.pain_behind_the_eyes }}
+  </div>
+  <div class="record-field">
+    <strong>Back Pain:</strong> {{ record.back_pain }}
+  </div>
+  <div class="record-field">
+    <strong>Constipation:</strong> {{ record.constipation }}
+  </div>
+  <div class="record-field">
+    <strong>Abdominal Pain:</strong> {{ record.abdominal_pain }}
+  </div>
+  <div class="record-field">
+    <strong>Diarrhea:</strong> {{ record.diarrhea }}
+  </div>
+  <div class="record-field">
+    <strong>Mild Fever:</strong> {{ record.mild_fever }}
+  </div>
+  <div class="record-field">
+    <strong>Yellow Urine:</strong> {{ record.yellow_urine }}
+  </div>
+  <div class="record-field">
+    <strong>Yellowing of Eyes:</strong> {{ record.yellowing_of_eyes }}
+  </div>
+  <div class="record-field">
+    <strong>Swelled Lymph Nodes:</strong> {{ record.swelled_lymph_nodes }}
+  </div>
+  <div class="record-field"><strong>Malaise:</strong> {{ record.malaise }}</div>
+  <div class="record-field">
+    <strong>Blurred Vision:</strong> {{ record.blurred_vision }}
+  </div>
+  <div class="record-field">
+    <strong>Throat Irritation:</strong> {{ record.throat_irritation }}
+  </div>
+  <div class="record-field">
+    <strong>Redness of Eyes:</strong> {{ record.redness_of_eyes }}
+  </div>
+  <div class="record-field">
+    <strong>Sinus Pressure:</strong> {{ record.sinus_pressure }}
+  </div>
+  <div class="record-field">
+    <strong>Congestion:</strong> {{ record.congestion }}
+  </div>
+  <div class="record-field">
+    <strong>Runny Nose:</strong> {{ record.runny_nose }}
+  </div>
+  <div class="record-field">
+    <strong>Chest Pain:</strong> {{ record.chest_pain }}
+  </div>
+  <div class="record-field">
+    <strong>Fast Heart Rate:</strong> {{ record.fast_heart_rate }}
+  </div>
+  <div class="record-field">
+    <strong>Dizziness:</strong> {{ record.dizziness }}
+  </div>
+  <div class="record-field">
+    <strong>Bruising:</strong> {{ record.bruising }}
+  </div>
+  <div class="record-field"><strong>Obesity:</strong> {{ record.obesity }}</div>
+  <div class="record-field">
+    <strong>Swollen Legs:</strong> {{ record.swollen_legs }}
+  </div>
+  <div class="record-field">
+    <strong>Swollen Blood Vessels:</strong> {{ record.swollen_blood_vessels }}
+  </div>
+  <div class="record-field">
+    <strong>Muscle Weakness:</strong> {{ record.muscle_weakness }}
+  </div>
+  <div class="record-field">
+    <strong>Stiff Neck:</strong> {{ record.stiff_neck }}
+  </div>
+  <div class="record-field">
+    <strong>Swelling Joints:</strong> {{ record.swelling_joints }}
+  </div>
+  <div class="record-field">
+    <strong>Movement Stiffness:</strong> {{ record.movement_stiffness }}
+  </div>
+  <div class="record-field">
+    <strong>Loss of Balance:</strong> {{ record.loss_of_balance }}
+  </div>
+  <div class="record-field">
+    <strong>Passage of Gases:</strong> {{ record.passage_of_gases }}
+  </div>
+  <div class="record-field">
+    <strong>Internal Itching:</strong> {{ record.internal_itching }}
+  </div>
+  <div class="record-field">
+    <strong>Depression:</strong> {{ record.depression }}
+  </div>
+  <div class="record-field">
+    <strong>Irritability:</strong> {{ record.irritability }}
+  </div>
+  <div class="record-field">
+    <strong>Muscle Pain:</strong> {{ record.muscle_pain }}
+  </div>
+  <div class="record-field">
+    <strong>Red Spots Over Body:</strong> {{ record.red_spots_over_body }}
+  </div>
+  <div class="record-field">
+    <strong>Belly Pain:</strong> {{ record.belly_pain }}
+  </div>
+  <div class="record-field">
+    <strong>Dischromic Patches:</strong> {{ record.dischromic_patches }}
+  </div>
+  <div class="record-field">
+    <strong>Watering from Eyes:</strong> {{ record.watering_from_eyes }}
+  </div>
+  <div class="record-field">
+    <strong>Increased Appetite:</strong> {{ record.increased_appetite }}
+  </div>
+  <div class="record-field">
+    <strong>Polyuria:</strong> {{ record.polyuria }}
+  </div>
+  <div class="record-field">
+    <strong>Mucoid Sputum:</strong> {{ record.mucoid_sputum }}
+  </div>
+  <div class="record-field">
+    <strong>Rusty Sputum:</strong> {{ record.rusty_sputum }}
+  </div>
+  <div class="record-field">
+    <strong>Visual Disturbances:</strong> {{ record.visual_disturbances }}
+  </div>
+  <div class="record-field">
+    <strong>Blood Transfusion:</strong> {{ record.blood_transfusion }}
+  </div>
+  <div class="record-field">
+    <strong>Unsterile Injections:</strong> {{ record.unsterile_injections }}
+  </div>
+  <div class="record-field">
+    <strong>Blood in Sputum:</strong> {{ record.blood_in_sputum }}
+  </div>
+  <div class="record-field">
+    <strong>Prominent Veins in Calf:</strong> {{ record.prominent_veins_in_calf
+    }}
+  </div>
+  <div class="record-field">
+    <strong>Painful Walking:</strong> {{ record.painful_walking }}
+  </div>
+  <div class="record-field">
+    <strong>Irregular Sugar Level:</strong> {{ record.irregular_sugar_level }}
+  </div>
+  <div class="record-field"><strong>Phlegm:</strong> {{ record.phlegm }}</div>
+  <div class="record-field">
+    <strong>Lethargy:</strong> {{ record.lethargy }}
+  </div>
+  <div class="record-field">
+    <strong>Toxic Look:</strong> {{ record.toxic_look }}
+  </div>
+  <div class="record-field">
+    <strong>Disease Diagnosed:</strong> {{ record.disease_diagnosed }}
+  </div>
+</div>
+{% endfor %} {% endblock content %}

@@ -1,0 +1,77 @@
+{% extends 'app/base.html' %} {% load static %} {% load crispy_forms_tags %} 
+{% block content %} 
+<style>
+    #div-doc {
+  transition: transform 0.4s ease;
+  background-color:#cadee9;
+  color:black;
+  backface-visibility: hidden;
+}
+
+#div-doc:hover {
+  transform: scale(1.08);
+}
+#container {
+    padding:15px;
+    border-radius:20px;
+}
+.phone-number:hover, .email-address:hover{
+    cursor:pointer;
+}
+</style>
+    <div class="d-flex flex-wrap"  id='container' style='width:1100px; margin-top:100px; margin-left:330px; margin-bottom:150px;'>
+    {% for doctor_profile in doctor_profiles %}
+        <div class='p-2 doctor' id='div-doc'style='border-style: solid; border-width: 1px; border-radius: 5px; box-shadow: 2px 3px #8d949e; width:330px; margin:13px;'>
+            <h2>{{ doctor_profile.name }}</h2>
+            <p>{{ doctor_profile.health_institution }}</p>
+            <p>{{ doctor_profile.disease_of_specialization }}</p>
+            <p class='email-address'>{{ doctor_profile.doctor_email }}</p>
+            <p class='phone-number'>+254{{ doctor_profile.doctor_contact }}</p>
+            <p>{{ doctor_profile.latitude }}</p>
+            <a href="{% url 'doctor_location' doctor_profile.id %}" class="location-link" data-doctor-id="{{ doctor_profile.id }}">See location</a>
+        </div>
+    {% endfor %}
+    <div>
+<script>
+// Get all phone number elements
+const phoneNumberElements = document.querySelectorAll(".phone-number");
+
+// Add event listener to each phone number element
+phoneNumberElements.forEach((phoneNumberElement) => {
+  phoneNumberElement.addEventListener("click", redirectToWhatsApp);
+});
+
+// Function to redirect to WhatsApp
+function redirectToWhatsApp(event) {
+  const phoneNumber = event.target.textContent;
+  const encodedPhoneNumber = encodeURIComponent(phoneNumber);
+
+  const whatsappURL = `https://api.whatsapp.com/send?phone=${encodedPhoneNumber}`;
+
+  window.open(whatsappURL);
+}
+
+// Get all email address elements
+const emailAddressElements = document.querySelectorAll(".email-address");
+
+// Add event listener to each email address element
+emailAddressElements.forEach((emailAddressElement) => {
+  emailAddressElement.addEventListener("click", redirectToGmail);
+});
+
+// Function to redirect to Gmail
+function redirectToGmail(event) {
+  const emailAddress = event.target.textContent;
+  const encodedEmailAddress = encodeURIComponent(emailAddress);
+
+  const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodedEmailAddress}`;
+
+  window.open(gmailURL);
+}
+
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  
+</script>
+{% endblock content %}

@@ -1,0 +1,86 @@
+{% extends 'app/base.html' %} {% load static %}{% block content %}
+<br></br>
+<div class="d-flex flex-row" style="margin-right:0px; margin-top: 0px; margin-left:150px; padding-right:0px;">
+  <div
+    class="p-2"
+    style="
+      width: 30%;
+      border-style: solid;
+      border-width: 1px;
+      border-radius: 5px;
+      box-shadow: 2px 3px #888888;
+      margin-left: 120px;
+      margin-top: 20px;
+      margin-bottom:20px;
+    "
+  >
+    <h1>MediAssist+</h1>
+    <p>Predicted Disease: {{ predicted_disease }}</p>
+    <p>Medication: {{ medicines }}</p>
+    <p></p>
+    <p>Supportive care: {{ supportive_care }}</p>
+    <p></p>
+    <p>Recommended doctor: {{ doctor_name }}</p>
+    <p>Health Institution: {{ institution }}</p>
+    <p>Disease(s) of specialization: {{ disease_of_specialization }}</p>
+    <p></p>
+    <p>Doctor email: {{ doctor_email }}</p>
+    <p></p>
+    <p>Doctor contact: +254{{ doctor_contact}}</p>
+    <p></p>
+    <p>Diagnose the disease <a href="{% url 'symptoms-encoding' %}">again</a>
+      <p>Print <a href="{% url 'print_records' %}">record</a>
+
+  </div>
+  <div
+    class="p-2"
+    style="
+      border-radious: 5px;
+      margin-top:20px;
+      margin-right:0px;
+      z-index: 9999;
+      width: 60%;
+      height: 600px;
+      margin-bottom:100px;
+    "
+  >
+    <div class="d-flex" style="border-style:solid 2px; width:800px;">
+      <p class="p-2" style="font-family: Helvetica, Arial, sans-serif; font-size:23px; margin:auto; text-align:center;">Directions to recommended doctor</p>
+      <select id="mode-select" class='p-2 form-select'>
+  <option value="driving">Driving</option>
+  <option value="walking">Walking</option>
+  <option value="transit">Transit</option>
+  <option value="bicycling">Bicycling</option>
+</select>
+<h6 class='p-2' id='distance-div'>Distance: <span id='distance'><span><h6>
+    </div>
+    <div id='map'></div>
+  </div>
+</div>
+
+<style>
+  #map {
+    height: 100%;
+    width: 800px;
+    border-radius: 5px;
+  }
+  #mode-select{
+    width:100px;
+    height:40px;
+    margin:auto;
+  }
+  #distance-div{
+    border:solid 2px black;
+    margin:auto;
+    border-radius:5px;
+  }
+</style>
+<script>
+  var latitude = Number("{{ latitude }}");
+  var longitude = Number("{{ longitude }}");
+</script>
+<script src="{% static 'app/import.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWeR-TXSUaAC63pu7V3Gj1pyX5C-eJfVY&libraries=places"></script>
+<script src="{% static 'app/map_result.js' %}"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+{% endblock content %}

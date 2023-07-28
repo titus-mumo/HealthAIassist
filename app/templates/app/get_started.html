@@ -1,0 +1,128 @@
+{% extends 'app/base.html' %} {% load static %} {% block content %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'app/get-stated.css' %}"
+/>
+<div id="home-div" class="d-flex flex-column">
+  <div class="p-2 d-flex flex-row" id="heading">
+    <img id="template-image" src="{% static 'app/logo.png' %}" />
+    <div>
+      <h1
+        class="p-2"
+        style="
+          font-family: Playfair Display, serif;
+          color: black;
+          font-size: 70px;
+        "
+      >
+        MediAssist+
+      </h1>
+      <h3>What are your health-related apprehensions for today?</h3>
+      <h5>
+        Let's diagnose your condition and advice appropriately. It's fast and
+        anonymous
+      </h5>
+    </div>
+  </div>
+  <button type="button" id="get-started" class="btn btn-success">
+    <span class="material-symbols-outlined"> stethoscope </span>
+    Start checkup
+  </button>
+</div>
+<div id="procedure" style="padding: 20px; border-radius: 5px;">
+  <div class="col-sm-6 col-md-7 col-lg-7">
+    <h2 class="section-header h4" style="color: #4c4c4c; font-size: 24px; margin-bottom: 20px;">
+      MediAssist+: Fast and Accurate Symptom Assessment
+    </h2>
+    <ul style="list-style-type: disc; color: #646464; font-size: 16px;">
+      <li>Respond to simple yes or no questions</li>
+      <li>Enter textual input about any other signs or symptoms</li>
+      <li>
+        <strong>Done! Your assessment will reveal:</strong>
+        <ul style="list-style-type: circle; color: #646464;" id='inner-list'>
+          <li>The likely disease you are diagnosed with</li>
+          <li>Prescribed medication and supportive care</li>
+          <li>Recommended doctor near you and their contacts</li>
+          <li>
+            A map that gives you directions to the recommended doctor based on
+            your current location
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<div id='chart-div'>    <h1>Diseases Diagonised in Active Users</h1>
+    <canvas id="chart" width="150" height="150"></canvas>
+<script>
+  document
+    .getElementById("get-started")
+    .addEventListener("click", function (event) {
+      event.preventDefault();
+
+      setTimeout(function () {
+        window.location.href = "{% url 'symptoms-encoding' %}";
+      }, 500);
+    });
+    {% comment %} document.getElementById('get-started').addEventListener('click', function(){
+        window.location.href = "{% url 'loading_page' %}"
+    }) {% endcomment %}
+</script>
+
+<script type="text/javascript">
+    var ctx = document.getElementById('chart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [{% for name in disease_names %} '{{ name }}', {% endfor %}],
+            datasets: [{
+                label:'Total',
+                data: [{% for count in occurence_counts %} '{{ count }}', {% endfor %}],
+                backgroundColor:[
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 135, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(151, 102, 132, 1)',
+                'rgba(153, 99, 132, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 135, 1)',
+                'rgba(25, 206, 86, 1)',
+                'rgba(211, 192, 192, 1)',
+                'rgba(234, 102, 132, 1)',
+                'rgba(153, 99, 132, 1)',
+                'rgba(255, 159, 64, 1)',
+                'gree',
+                'yellow',
+                ],
+
+                borderColor: [
+                'rgba(54, 162, 135, 1)',
+                'rgba(25, 206, 86, 1)',
+                'rgba(211, 192, 192, 1)',
+                'rgba(234, 102, 132, 1)',
+                'rgba(153, 99, 132, 1)',
+                'rgba(255, 159, 64, 1)',
+
+                ],
+
+                borderWidth: 1
+            }]
+        },
+
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    })
+</script>        
+{% endblock content%}

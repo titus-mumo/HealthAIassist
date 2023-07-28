@@ -1,0 +1,29 @@
+{% extends 'app/base.html' %} {% load static %} {% load crispy_forms_tags %} 
+{% block content %}
+{% comment %} <div id="map"></div> {% endcomment %}
+<div class='d-flex flex-column' style='width:1000px; margin-top:80px; margin-left:250px; margin-bottom:150px;'>
+<div class='p-2 d-flex flex-row'>
+    <p class='p-2' style="font-family: Helvetica, Arial, sans-serif; font-size:23px; margin:auto; text-align:center;">{{ doctor_name}}'s location</p>
+      <button type='button' class = 'p-2 btn btn-info' id="find-me" style= "margin:auto;"><i class="fa-solid fa-location-dot"></i> Show my location</button><br />
+</div>
+<div class='p-2' id='map'>
+
+</div>
+<style>
+  #map {
+    height: 630px;
+    width: 1000px;
+    border-radius: 5px;
+  }
+</style>
+<script>
+  var latitude = Number("{{ latitude }}");
+  var longitude = Number("{{ longitude }}");
+  
+  console.log(latitude)
+</script>
+<script src="{% static 'app/import.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWeR-TXSUaAC63pu7V3Gj1pyX5C-eJfVY&libraries=places"></script>
+<script src="{% static 'app/maps_locations.js' %}"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+{% endblock content %}

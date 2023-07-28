@@ -1,0 +1,111 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br></br>
+<div class='d-flex flex-row' style="margin-left:220px; margin-right:0px; margin-top:20px;">
+<div class='p-2' style="width:47%; margin-left:20px;" id='questions'>
+  <h3>Hello {{ first_name }}, kindly respond</h3></br>
+  <form method="post" action="{% url 'symptoms-encoding' %}">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="prompt-container">
+      <div class='form-group'>
+      <div class="prompt-text">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      </div>
+    </div>
+      <div class="button-container">
+        <button type="button" class="btn btn-outline-primary" onClick="toggleButtonClass(this)" name="{{ field.name }}" value="yes">Yes</button>
+        <span class="button-space"></span>
+        <button type="button" class="btn btn-outline-primary" onClick="toggleButtonClass(this)" name="{{ field.name }}" value="no">No</button>
+        <input type="hidden" id="response_{{ field.name }}" name="response_{{ field.name }}" value="{{ field.value }}">
+      </div>
+    </div>
+    <hr>
+    {% endfor %}
+    {% comment %} <button type="button" class="btn btn-info" onclick="return showInputField">
+      <i class="fa-sharp fa-solid fa-plus"></i> Add Text Input
+    </button>
+    <br></br>
+    <div id="inputContainer" style="display: none;">
+      <input type="text" id="inputField" style="width: 85%; height: 100px; border-radius:5px;">
+    </div>
+    <br></br> {% endcomment %}
+    <button type="submit" class="btn btn-success" onclick="return validateForm();" style="width:50%;">
+      <i class="fa-solid fa-stethoscope"></i> Submit
+    </button>
+  </form>
+  <p id="message" class="text-danger"></p>
+</div>
+<br>
+<br>
+<div class='p-2' style="border-radius: 5px; z-index: 9999; width:60%; position:fixed; right:-190px; top:90px;">
+  <div class="d-flex" style="border-style:solid 2px; width:700px;">
+  <p class="p-2" style="font-family: Helvetica, Arial, sans-serif; font-size:23px; margin:auto;">Health Facilities near you</p>
+  <button type='button' class = 'p-2 btn btn-info' id="find-me" style= "height: 40px; margin:auto;"><i class="fa-solid fa-location-dot"></i> <span class='button-text'>Show my location</span></button><br />
+  <p id='status'><p>
+  </div>
+  <div id='map'></div>
+</div>
+</div>
+
+
+<style>
+  
+.prompt-container {
+  display: flex;
+  align-items: center;
+}
+
+.prompt-text {
+  width: 400px;
+  margin-top: 10px;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-space {
+  width: 10px;
+}
+
+hr {
+  width: 510px;
+}
+#map {
+ height:600px;
+ width: 700px;
+ border-radius:5px;
+}
+
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  locationButton = document.getElementById('find-me');
+  var buttonText = locationButton.querySelector('.button-text');
+  locationButton.addEventListener('click', function(){
+    if(buttonText.textContent === 'Show my location'){
+      buttonText.textContent = 'Hide my location';
+    }else{
+      buttonText.textContent = "Show my location";
+    }
+  });
+});
+</script>
+
+ <script src="{% static 'app/validate.js' %}"></script>
+  <script src="{% static 'app/import.js' %}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWeR-TXSUaAC63pu7V3Gj1pyX5C-eJfVY&libraries=places"></script>
+  <script src="{% static 'app/map.js' %}"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  
+{% endblock content %}
+
+
+
+
+

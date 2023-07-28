@@ -1,0 +1,41 @@
+{% extends 'app/base.html' %} {% load static %} {% load crispy_forms_tags %}
+{% block content %}
+<style>
+  #container-div {
+    margin-top: 200px;
+    margin-left: 500px;
+  }
+    body.dark-mode .table-vertical th, body.dark-mode .table-vertical td {
+    color: white;
+    }
+    form{
+        width:400px;
+    }
+    </style>
+</style>
+<div class="d-flex flex-column" id="container-div">
+        <div class="container">
+        <form method="POST" action="{% url 'settings' %}" >
+  <h3 class="display-8">User Information</h3>
+  {% csrf_token %} 
+  <div class="form-group">
+  {{ form.contact | as_crispy_field }}
+  </div>
+  <div class="form-group">
+  {{ form.first_name | as_crispy_field }}
+  </div>
+    <div class="form-group">
+  {{ form.last_name | as_crispy_field }}
+  </div>
+  <button type="submit" class="btn btn-success" style="justify-content: center; width:50%;";>
+    <i class="fas fa-database"></i> Submit
+  </button>
+</form>
+
+
+    </div>
+</div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+
+{% endblock content %}

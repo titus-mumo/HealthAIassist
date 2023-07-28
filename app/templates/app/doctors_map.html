@@ -1,0 +1,38 @@
+{% extends 'app/base.html' %} {% load static %} {% load crispy_forms_tags %}
+{% block content %}
+
+<div id="map"></div>
+<script src="{% static 'app/import.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWeR-TXSUaAC63pu7V3Gj1pyX5C-eJfVY&libraries=places"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+<script>
+  async function initMap() {
+    const doctorLocationsString = "{{ doctors }}";
+    const doctorLocations = JSON.parse(doctorLocationsString);
+
+    const { Map, Marker } = await google.maps.importLibrary("maps");
+
+    const mapOptions = {
+      zoom: 10,
+      center: new google.maps.LatLng(-1.1958929893863986, 36.926161801736676),
+    };
+
+    const map = new Map(document.getElementById("map"), mapOptions);
+
+    doctorLocations.forEach(function (doctor) {
+      const latitude = parseFloat(doctor.latitude);
+      const longitude = parseFloat(doctor.longitude);
+
+      if (!isNaN(latitude) && !isNaN(longitude)) {
+        const marker = new Marker({
+          position: new google.maps.LatLng(latitude, longitude),
+          map: map,
+        });
+      }
+    });
+  }
+
+  initMap();
+</script>
+{% endblock content %}

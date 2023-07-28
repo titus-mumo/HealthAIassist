@@ -1,0 +1,60 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+    #submit, #cancel{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        align-self:center;
+        height:30px;
+    }
+    span{
+        margin-right:10px;
+        align-self:center;
+    }
+    #submit{
+        margin-right:120px;
+        margin-left:30px;
+    }
+    #container{
+        background-color:rgb(240,238, 230);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        border-radius:10px;
+    }
+    #form{
+        margin-bottom:20px;
+        color:black;
+    }
+</style>
+
+<div style='margin-left:550px; margin-top:200px; width:410px; margin-bottom:400px;' id='container'>
+    <form method='POST' action="{% url 'feedback' %}" style='width:90%' id='form'>
+        <div class='form-group'>
+            <p>{{ form.feedback | as_crispy_field }}</p>
+        </div>
+        <div class='d-flex' style='width:400px; margin-top:20px;'>
+            <button type='submit' id='submit' class='p-2 btn btn-success'><span class="material-symbols-outlined" style='align-self:center;'>
+                    database
+                </span>Submit
+            </button>
+            <button type='cancel' id='cancel' class='p-2 btn btn-secondary'><span class="material-symbols-outlined">
+                    noise_control_on
+                </span>Cancel
+            </button>
+        </div>
+    <form>
+</div>
+<script>
+    document.getElementById('cancel').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    setTimeout(function() {
+        window.location.href = "{% url 'symptoms-encoding' %}";
+    }, 200); 
+    });
+</script>
+{% endblock content %}

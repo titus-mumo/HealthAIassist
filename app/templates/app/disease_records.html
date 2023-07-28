@@ -1,0 +1,74 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div id='content-wrapper'>
+    <div class='d-flex flex-column' id='download-element'style='margin-top:100px; margin-left:350px; margin-bottom:200px;width:850px;border:solid 2px black; border-radius:10px; box-shadow:1px 1px 2px 2px #888888;'>
+        <div class='p-2 d-flex flex-row' style='width:100%;border:solid 2px black; border-radius:8px; box-shadow: 1px 2px #888888;'>
+                <h5 class='p-2'style='width:200px;'>Date</h5>
+                <h5 class='p-2'style='width:100px;'>Record ID</h5>
+                <h5 class='p-2'style='width:150px;'>Disease diagonised</h4>
+                <h5 class='p-2'style='width:200px;'>Medicine prescribed</h5>
+                <h5 class='p-2'style='width:200px;'>Recommended supportive care</h5>
+                           
+        </div>
+    {% for record in user_records_array %}
+        <div class='p-2 d-flex flex-row' style='width:100%; margin:0px; padding: 0px; border:solid 0.5px black; border-radius:3px; box-shadow: 1px 2px #888888;'>
+            <p class='p-2'style='solid 1px black; width:200px;'>{{ record.date_diagonised }}</p>
+            <p class='p-2'style='solid 1px black; width:100px;'>{{ record.record_id }}</p>
+            <p class='p-2'style='solid 1px black; width:150px;'>{{ record.disease }}</p>
+            <p class='p-2'style='width:200px;'>{{ record.medicine }}</p>
+            <p class='p-2'style='width:200px;'>{{ record.supportive_care }}</p>
+            <hr>
+        </div>
+    {% endfor %}
+    </div >
+</div>
+    <button type='button' id='download' class='btn btn-dark' style='display:flex; align-items:center; position:fixed; right:40px; top:300px; width:150px;' onclick='downloadData()'> 
+        <span class="material-symbols-outlined" style='margin-right:15px;'>
+            download
+        </span>Download</button>
+<script>
+    function downloadData() {
+        // Get the content of the parent element ('content-wrapper')
+        const contentWrapper = document.getElementById('download-element').cloneNode(true);
+
+        // Remove any script tags to prevent interference with the current page
+        const scriptTags = contentWrapper.getElementsByTagName('script');
+        for (let i = scriptTags.length - 1; i >= 0; i--) {
+            scriptTags[i].parentNode.removeChild(scriptTags[i]);
+        }
+
+        // Get all div elements with 'd-flex flex-row' class
+        const flexRowDivs = contentWrapper.querySelectorAll('.d-flex.flex-row');
+
+        // Wrap 'd-flex flex-row' divs in parent divs with 'flex-row' class
+        flexRowDivs.forEach((div) => {
+            const parentDiv = document.createElement('div');
+            parentDiv.className = 'flex-row';
+            div.parentNode.insertBefore(parentDiv, div);
+            parentDiv.appendChild(div);
+        });
+
+        // Create a new HTML document to wrap the content
+        const htmlDocument = document.implementation.createHTMLDocument('downloaded_data');
+        htmlDocument.body.appendChild(contentWrapper);
+
+        // Get the serialized HTML content
+        const serializedContent = new XMLSerializer().serializeToString(htmlDocument);
+
+        // Create a Blob with the content
+        const blob = new Blob([serializedContent], { type: 'text/html' });
+
+        // Create a link element and trigger the download
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(blob);
+        downloadLink.download = 'downloaded_data.html';
+        downloadLink.click();
+
+        // Clean up
+        URL.revokeObjectURL(downloadLink.href);
+    }
+</script>
+
+{% endblock content %}

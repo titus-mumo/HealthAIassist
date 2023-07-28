@@ -1,0 +1,759 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/brands.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css"
+      integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="html2pdf.bundle.min.js"></script>
+    		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+			integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>MediAssist+</title>
+    <style>
+      body {
+        transition: background-color 0.5s ease;
+        x-overflow: hidden;
+      }
+      {% comment %} #background{
+        background-image: url('https://img.freepik.com/free-vector/white-background-with-blue-tech-hexagon_1017-19366.jpg?size=626&ext=jpg&ga=GA1.2.1845343617.1688943758&semt=ais');
+        background-size:cover;
+        background-repeat:no-repeat;
+        width:1500px;
+        height:1000px;
+        z-index:-23434;
+      } {% endcomment %}
+      body.light-theme {
+        background-color: #f8f9fa;
+        color: #000;
+      }
+
+      body.dark-theme {
+        background-color: #343a40;
+        color: #fff;
+      }
+      p {
+        font-size: 17px;
+      }
+      .side-bar-value {
+        display: flex;
+        margin: auto;
+        height: 45px;
+        width: 100%;
+        padding-left: 15px;
+        align-items: center;
+        justify-content: center;
+        vertical-align: center;
+        padding-top: 12px;
+        border-radius: 10px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+      .side-bar-value:hover {
+        cursor: pointer;
+        background-color: #606770;
+        transition: background-color 0.03s ease;
+      }
+      .side-bar-value:active {
+        background-color: #606770;
+      }
+      #menu {
+        width: 230px;
+        border-radius: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 15px;
+      }
+      #menu:hover {
+        cursor: pointer;
+        background-color: #8d949e;
+        transition: background-color 0.05s ease;
+      }
+      .side-bar-value:focus {
+        font-weight: bold;
+      }
+      #theme:hover,
+      #logout:hover,
+      #bookmarks:hover,
+      #settings:hover {
+        cursor: pointer;
+        background-color: #606770;
+        transition: background-color 0.05s ease;
+      }
+      #theme,
+      #logout,
+      #bookmarks {
+        border-radius: 10px;
+        margin-top: 2px;
+        margin-bottom: 2px;
+      }
+      #settings {
+        border-radius: 10px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+      #more-menu {
+        display: none;
+      }
+      #logout-confirm, #logout-cancel {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        height:32px;
+        margin-right:50px;
+      }
+      #logout-confirm{
+        margin-left:50px;
+      }
+      #logout-cancel{
+        margin-left:25px;
+      }
+      #logout-prompt{
+        display:none;
+        position:fixed;
+        top:300px;
+        left:500px;
+        width:300px;
+        height:110px;
+        border:solid 2px black;
+        border-radius:10px;
+        margin-bottom:40px;
+        box-shadow: 1px 2px #888888;
+      }
+      #theme .material-symbols-outlined::before {
+        content: 'dark_mode';
+       }
+
+      #theme.dark-mode .material-symbols-outlined::after {
+        content: 'light_mode';
+      }
+      img{
+        width:100px;
+        border-radius:50px;
+      }
+      button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.doctor {
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+footer {
+    color: #fff;
+}
+ul {
+    padding: 0px;
+}
+ol, ul {
+    margin-bottom: 0px;
+}
+
+.social-icon {
+    padding: 0;
+    margin-bottom: 0px;
+        float: right;
+}
+
+.social-icon li {
+    list-style: none;
+    display: inline-block;
+}
+.social-icon li i {
+    font-size: 14px;
+    color: #262725;
+    border: solid 2px #ffffff;
+    height: 31px;
+    width: 31px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 100px;
+    line-height: 27px;
+    margin-right: 15px;
+    transition: 1s;
+    background: #fff;
+}
+.social-icon li i:hover {
+    border: solid 2px #262725;
+    color: #ffffff;
+    background: #262725;
+}
+
+.phone-no i {
+    position: relative;
+    margin-right: 14px;
+    font-size: 43px;
+    top: 5px;
+}
+.phone-no {
+    margin-top: -22px;
+    text-align: right;
+}
+.footer-day-time {
+    padding-bottom: 30px;
+    border-bottom: 2px solid #7a6f6f;
+    padding-top: 14px;
+    margin-bottom: 55px;
+}
+.footer-day-time ul li {
+    display: inline;
+    margin-right: 20px;
+}
+.footer-day-time ul li:last-child {
+    margin-right: 0px;
+}
+.phone-no a {
+    color: #fff;
+    font-family: PlayfairDisplay-Black;
+    font-size: 34px;
+    font-weight: bold;
+}
+.footer-top {
+    background: #2f2f2f;
+    padding:50px 0 50px;
+}
+.footer-top h4 {
+    font-size: 19px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+.footer-top p {
+    font-size: 13px;
+    line-height: 2;
+}
+
+footer p {
+  margin-bottom:0;
+}
+.footer-logo {
+    display: block;
+    margin-bottom: 32px;
+}
+.address1 li {
+    list-style: none;
+    position: relative;
+    padding: 0px 0 14px 34px;
+    line-height: 26px;
+}
+ul.address1 span {
+    position: absolute;
+    width: 40px;
+    max-width: 40px;
+    left: 0;
+}
+.address1 li a {
+    color: #fff;
+    text-decoration: none;
+}
+ul.address1 i {
+    width: 20px;
+    position: absolute;
+    left: 0px;
+    text-align: center;
+    font-size: 28px;
+    top: 0;
+}
+
+ul.address1 i.fa-envelope {
+    font-size: 18px;
+    top: 4px;
+}
+footer ul.social-icon {
+    float: left;
+}
+footer .social-icon li i:hover {
+    background: #4b8800;
+    border-color: #4b8800;
+}
+
+.footer-bottom {
+    background: #4b8800;
+    padding: 10px 0px;
+}
+.footer-bottom ul li {
+    display: inline;
+    margin-right: 20px;
+    font-size: 18px;
+}
+.footer-bottom ul li a{
+    color:#fff;
+}
+
+.footer-bottom ul {
+    float: right;
+}
+
+.footer-bottom ul li:last-child {
+    margin-right: 0;
+}
+.copyright {
+    font-size: 18px;
+}
+
+    </style>
+  </head>
+  <body>
+    <div
+      class="container"
+      style="
+        margin-right: 0px;
+        margin-left: 0px;
+        width: 100%;
+        padding-bottom: 0px;
+        position: relative;
+      "
+    >
+      <div>
+        <nav
+          class="navbar navbar-expand-lg navbar-light bg-dark"
+          style="
+            height: 90px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+          "
+        >
+          <div class="container-fluid d-flex flex-row" style="margin: 0">
+            <div class="p-2 d-flex flex-row" style='display:flex; align-items:center;'>
+              <img class='p-2'src="{% static 'app/logo.png' %}" />
+              <h1 class='p-2'style="font-family: Playfair Display, serif; color: white">
+                MediAssist+
+              </h1>
+            </div>
+            <div class="p-2" style="margin-right: 0px">
+              <form class="d-flex">
+                <select id="dropdownMenu" class='form-select' style='margin-right: 10px;'></select>
+                <input
+                  class="form-control me-2"
+                  id='searchInput'
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+                <button id='searchButton' class="btn btn-outline-success" type="submit"  onclick="performSearch()" disabled>
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="row">
+        <!-- Sidebar -->
+        <div
+          style="
+            position: fixed;
+            top: 100px;
+            left: 2px;
+            width: 230px;
+            border-radius: 10px;
+            background-color: #1e90ff;
+            padding-left: 0px;
+            padding-right: 0px;
+          "
+        >
+          <!-- Sidebar content goes here -->
+          <div class="side-bar-value" id="home">
+            <p
+              
+              style="
+                vertical-align: middle;
+                display: flex;
+                align-items: center;
+                margin-top: 10px;
+                width: 100%;
+              "
+            >
+              <span
+                class="material-symbols-outlined"
+                style="margin-right: 10px"
+              >
+                home
+              </span>
+              Home
+            </p>
+          </div>
+          <div class="side-bar-value" id="diagnosis">
+            <p
+              style="
+                vertical-align: middle;
+                display: flex;
+                align-items: center;
+                width: 100%;
+              "
+            >
+              <span
+                class="material-symbols-outlined"
+                style="margin-right: 10px"
+              >
+                diagnosis
+              </span>
+              Diagnosis
+            </p>
+          </div>
+          <div class="side-bar-value" id='medicine'>
+            <p
+             style="
+                vertical-align: middle;
+                display: flex;
+                align-items: center;
+                width: 100%;
+              "
+            >
+              <span
+                class="material-symbols-outlined"
+                style="margin-right: 10px"
+              >
+                microbiology
+              </span>
+              Diseases
+            </p>
+          </div>
+         <div class="side-bar-value" id="doctor-profiles">
+            <p
+              style="
+                vertical-align: middle;
+                display: flex;
+                align-items: center;
+                width: 100%;
+              "
+            >
+              <span
+                class="material-symbols-outlined"
+                style="margin-right: 10px"
+              >
+                clinical_notes
+              </span>
+              Doctor Profiles
+            </p> 
+          </div> 
+          <div class="side-bar-value" id="health-centers">
+            <p
+              style="
+                vertical-align: middle;
+                width: 100%;
+                display: flex;
+                align-items: center;
+              "
+            >
+              <span
+                class="material-symbols-outlined"
+                style="margin-right: 10px"
+              >
+                home_health
+              </span>
+              Health Centers
+            </p>
+          </div> 
+          <div class="side-bar-value" id="history">
+            <p
+              id="history"
+              style="
+                vertical-align: middle;
+                display: flex;
+                align-items: center;
+                width: 100%;
+              "
+            >
+              <span
+                class="material-symbols-outlined"
+                style="margin-right: 10px"
+              >
+                history
+              </span>
+              Recent Activity
+            </p>
+          </div>
+          <div class="side-bar-value" id="feedback">
+            <p
+              style="
+                vertical-align: middle;
+                display: flex;
+                align-items: center;
+                width: 100%;
+              "
+            >
+              <span
+                class="material-symbols-outlined"
+                style="margin-right: 10px"
+              >
+                chat_bubble
+              </span>
+              Feedback
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        id="more-menu"
+        style="
+          display: none;
+          position: fixed;
+          width: 220px;
+          bottom: 80px;
+          left: 40px;
+          height: 250px;
+          border-radius: 10px;
+          padding: 0px;
+          background-color: #8d949e;
+        "
+      >
+        <div
+          id="settings"
+          class="p-2"
+          style="
+            margin: 0px;
+            padding-left: 20px;
+            display: flex;
+            align-items: center;
+            height: 45px;
+            margin-bottom: 10px;
+          "
+        >
+          <p style="display: flex; align-items: center; margin-top: 12px">
+            <span class="material-symbols-outlined" style="margin-right: 12px">
+              settings
+            </span>
+            Settings
+          </p>
+        </div>
+        <hr style="width: 200px; align-self: center; margin: 2px" />
+                <div
+          id="logout"
+          class="p-2"
+          style="display: flex; align-items: center; height: 45px"
+        >
+          <p
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-top: 12px;
+            "
+          >
+            <span class="material-symbols-outlined" style="margin-right: 12px">
+              logout </span
+            >Logout
+          </p>
+        </div>
+
+                <div
+          id="theme"
+          class="p-2"
+          style="display: flex; align-items: center; height: 45px"
+        >
+          <p
+            id = 'theme-p'
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-top: 12px;
+            "
+          >
+            <span id='theme-span'class="material-symbols-outlined" style="margin-right: 12px"></span
+            >Dark Mode
+          </p>
+        </div>
+
+      </div> 
+      <div
+        style="
+          position: fixed;
+          bottom: 10px;
+          left: 2px;
+          display: flex;
+          flex-direction: row;
+        "
+      >
+        <p
+          id="menu"
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            font-size: 19px;
+            align-self: flex-start;
+            width: 230px;
+          "
+        >
+          <span class="material-symbols-outlined" style="margin-right: 10px">
+            menu </span
+          >More
+        </p>
+      </div>
+      {% comment %} <div>
+      {% for message in messages %}
+    <div class="container-fluid p-0" style='margin-top:200px;'>
+      <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="True">&times;</span>
+        </button>
+        {{ message }}
+      </div>
+    </div>
+    {% endfor %}
+  </div> {% endcomment %}
+      <div class="container" style="margin-top: 30px; margin-right: 0px" id='main-body'>
+        {% block content %} {% endblock content %}
+      </div>
+      <div
+        style="
+          margin-right: 200px;
+          margin-left: 300px;
+          width: 1000px;
+          z-index: 10000;
+          border-radius: 10px;
+          padding: 0px;
+          margin-bottom: 0px;
+        "
+      >
+      <div 
+        id="logout-prompt" 
+        >
+        <p class='p-2' style='align-self:center; height:30px;'>Are you sure you want to log out?</p>
+        <div class='p-2 d-flex' style='display:flex; align-items:center; justify-content:center; width:100%; padding-bottom:20px; height:60px;'>
+          <button type='button' id='logout-confirm' class='p-2 btn btn-primary'>
+            Yes</button>
+                      <button type='button' id='logout-cancel' class='p-2 btn btn-secondary'>
+            Cancel</button>
+        </div>
+
+    </div>
+    <div>
+</div>
+  </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+      var doctorProfilesElement = document.getElementById("doctor-profiles");
+      doctorProfilesElement.addEventListener("click", function () {
+        window.location.href = "{% url 'get_doctor_profiles' %}";
+      });
+
+            var homeElement = document.getElementById("home");
+      homeElement.addEventListener("click", function () {
+        window.location.href = "{% url 'get_started' %}";
+      });
+
+      var diagnosisElement = document.getElementById("diagnosis");
+      diagnosisElement.addEventListener("click", function () {
+        window.location.href = "{% url 'symptoms-encoding' %}";
+      });
+
+      var recentActivityElement = document.getElementById("history");
+      recentActivityElement.addEventListener("click", function () {
+        window.location.href = "{% url 'recent_activity' %}";
+      });
+
+      var feedbackElement = document.getElementById("feedback");
+      feedbackElement.addEventListener("click", function () {
+        window.location.href = "{% url 'feedback' %}";
+      });
+
+      
+      var diseaseElement = document.getElementById("medicine");
+      diseaseElement.addEventListener("click", function () {
+        window.location.href = "{% url 'disease_information' %}";
+      });
+
+      var doctorsLocationElement = document.getElementById('health-centers');
+      doctorsLocationElement.addEventListener('click', function() {
+        window.location.href = "{% url 'all_doctors_location' %}";
+      });
+
+      var moreMenuElement = document.getElementById('more-menu');
+      var moreMenuButton = document.getElementById('menu');
+      moreMenuButton.addEventListener('click', function() {
+        if (moreMenuElement.classList.contains('d-none')){
+        moreMenuElement.classList.remove('d-none')
+        moreMenuElement.classList.add('d-flex', 'flex-column')
+        } else{
+        moreMenuElement.classList.add('d-none')
+        moreMenuElement.classList.remove('d-flex', 'flex-column')
+        };
+      });
+
+      const allEvents = ['click', 'keydown', 'mouseenter', 'submit'];
+      mainBodyElement = document.getElementById('main-body')
+      mainBodyElement.addEventListener('click', function() {
+        if (moreMenuElement.classList.contains('d-flex', 'flex-column')){
+        moreMenuElement.classList.remove('d-flex', 'flex-column')
+        moreMenuElement.classList.add('d-none')
+        };
+      });
+            mainBodyElement.addEventListener('keydown', function() {
+        if (moreMenuElement.classList.contains('d-flex', 'flex-column')){
+        moreMenuElement.classList.remove('d-flex', 'flex-column')
+        moreMenuElement.classList.add('d-none')
+        };
+      });
+      var logoutButton = document.getElementById('logout')
+      var logoutElement = document.getElementById('logout-prompt')
+      var bodyElement = document.getElementById('main-body')
+      logoutButton.addEventListener('click', function(){
+        window.location.href = "{% url 'logout_view' %}"
+      });
+      document.getElementById('settings').addEventListener('click', function(){
+        window.location.href = "{% url 'settings' %}";
+      });
+
+    });
+    </script>
+    <script>
+    </script>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <script src="{% static 'app/dark.js' %}"></script>
+    <script src="{% static 'app/search.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+{% extends 'app/base.html' %} {% load static %} {% load crispy_forms_tags %} {% block content %}
+<style>
+  #view_diseases:hover,
+  #locations_viewed:hover {
+    background-color: black;
+    transition: background-color 0.3s ease;
+  }
+  #button-container {
+    border: solid 2px black;
+    border-radius: 10px;
+    box-shadow: 1px 2px #888888;
+    width: 300px;
+    height: 200px;
+  }
+</style>
+<div
+  class="d-flex flex-column"
+  id="button-container"
+  style="
+    margin-top: 200px;
+    margin-left: 500px;
+    display: flex;
+    align-items: center;
+  "
+>
+  <button
+    type="button"
+    id="view_diseases"
+    class="p-2 btn btn-secondary"
+    style="align-self: center; margin: auto"
+  >
+    Diseases Diagnonised
+  </button>
+  <button
+    type="button"
+    id="locations_viewed"
+    class="p-2 btn btn-secondary"
+    style="align-self: center; margin: auto"
+  >
+    Doctor's locations viewed
+  </button>
+</div>
+
+<script>
+  var diseaseDiagonisedElement = document.getElementById("view_diseases");
+  diseaseDiagonisedElement.addEventListener("click", function () {
+    window.location.href = "{% url 'disease_records' %}";
+  });
+</script>
+{% endblock content %}

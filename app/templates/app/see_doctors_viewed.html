@@ -1,0 +1,25 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class='d-flex flex-column' id='download-element'style='margin-top:100px; margin-left:350px; margin-bottom:200px;width:650px;border:solid 2px black; border-radius:10px; box-shadow:1px 1px 2px 2px #888888;'>
+        <div class='p-2 d-flex flex-row' style='width:100%;border:solid 2px black; border-radius:8px; box-shadow: 1px 2px #888888;'>
+                <h5 class='p-2'style='width:250px;'>Date</h5>
+                <h5 class='p-2'style='width:100px;'>Record ID</h5>
+                <h5 class='p-2'style='width:300px;'>Doctors' name</h5>
+                           
+        </div>
+    {% for location in my_locations %}
+        <div class='p-2 d-flex flex-row' style='width:100%; margin:0px; padding: 0px; border:solid 0.5px black; border-radius:3px; box-shadow: 1px 2px #888888;'>
+            <p class='p-2'style='solid 1px black; width:200px;'>{{ location.date }}</p>
+            <p class='p-2'style='solid 1px black; width:100px;'>{{ location.recordid }}</p>
+            <p class='p-2'style='solid 1px black; width:200px;'>{{ record.doctor }}</p>
+        </div>
+    {% endfor %}
+    </div>
+    <button type='button' id='download' class='btn btn-dark' style='display:flex; align-items:center; position:fixed; right:40px; top:300px; width:150px;'> 
+        <span class="material-symbols-outlined" style='margin-right:15px;'>
+            download
+        </span>Download</button>
+
+{% endblock content %}
